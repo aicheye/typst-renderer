@@ -1,0 +1,22 @@
+.typst-app {
+  height: auto !important;
+  width: 100% !important;
+  position: relative !important;
+}
+
+.typst-page.canvas {
+  height: auto !important;
+  width: 100% !important;
+}
+
+.typst-page.canvas div:has(canvas) {
+  height: auto !important;
+  width: 100% !important;
+  position: relative !important;
+}
+
+.typst-html-semantics {
+  height: 0 !important;
+  width: 0 !important;
+  overflow: hidden !important;
+}
