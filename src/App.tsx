@@ -1,7 +1,9 @@
 import init, { TypstCompiler, TypstCompilerBuilder } from '@myriaddreamin/typst-ts-web-compiler';
 import { TypstDocument } from '@myriaddreamin/typst.react';
 import { useEffect, useRef, useState } from 'react';
-import { FiCheck, FiClipboard, FiDownload, FiGithub } from 'react-icons/fi';
+import { FiBook, FiCheck, FiClipboard, FiDownload, FiGithub, FiHeart } from 'react-icons/fi';
+import ExamplesGallery from './ExamplesGallery';
+import { examples } from './examples';
 
 TypstDocument.setWasmModuleInitOptions({
   beforeBuild: [],
@@ -9,7 +11,7 @@ TypstDocument.setWasmModuleInitOptions({
 });
 
 function App() {
-  const [code, setCode] = useState<string>("r = frac(Sigma(x_i - overline(x))(y_i - overline(y)), sqrt(Sigma(x_i - overline(x))^2Sigma(y_i - overline(y))^2))");
+  const [code, setCode] = useState<string>(examples[0]);
   const [compiler, setCompiler] = useState<TypstCompiler | null>(null);
   const [artifact, setArtifact] = useState<Uint8Array | null>(null);
   const initialized = useRef(false);
@@ -123,8 +125,8 @@ function App() {
     <>
       <div className="min-h-screen min-w-screen flex flex-col gap-8 items-center justify-center p-4">
         <div className="flex-1 flex flex-col gap-8 items-center justify-center w-full">
-          <span className="text-2xl font-bold">Typst Renderer</span>
           <div className="flex flex-col gap-4 max-w-4xl w-full px-8 items-center justify-center">
+            <span className="text-2xl font-bold">Typst Renderer</span>
             <div className="border-2 border-dashed border-gray-300 rounded-lg w-full flex items-center justify-center">
               <textarea
                 className="no-outline border-none w-full h-full p-4 outline-none text-center text-2xl"
@@ -169,11 +171,18 @@ function App() {
               </button>
             </div>
           </div>
+          <ExamplesGallery compiler={compiler} onSelect={(v) => setCode(v)} />
         </div>
-        <footer className="text-gray-500">
-          <a href="https://github.com/aicheye/typst-renderer" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+        <footer className="flex flex-row gap-2">
+          <a href="https://github.com/aicheye/typst-renderer" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1">
             <FiGithub /> See Source
           </a>
+          <span>·</span>
+          <a href="https://typst.app/docs/reference/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1">
+            <FiBook /> Typst Reference
+          </a>
+          <span>·</span>
+          <span>Made with <FiHeart className="inline text-red-500" /> by Sean Yang</span>
         </footer>
       </div>
     </>
