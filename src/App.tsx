@@ -138,7 +138,7 @@ function App() {
                 aria-label="Typst formula input"
               />
             </div>
-            <div className="border-2 rounded-lg w-full h-64 flex items-center justify-center overflow-auto bg-white text-black">
+            <div className="border-2 rounded-lg w-full h-64 text-2xl flex items-center justify-center overflow-auto bg-white text-black">
               <div className="w-full flex flex-col items-center p-2">
                 <div ref={renderRef} className="w-full flex items-center justify-center">
                   {artifact ? (

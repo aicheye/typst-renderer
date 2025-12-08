@@ -1,75 +1,80 @@
-# React + TypeScript + Vite
+# typst-renderer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A small Vite + React TypeScript app that demonstrates rendering Typst documents in the browser using WebAssembly and accompanying helper libraries. The project bundles a Typst web compiler and assets under `public/wasm` and `public/fonts` so rendering works client-side.
 
-Currently, two official plugins are available:
+**Features**
+- **In-browser Typst rendering:** Uses a WebAssembly-based Typst compiler to render in the browser.
+- **Vite + React + TypeScript:** Fast dev server and modern frontend toolchain.
+- **Bundled assets:** Fonts and WASM are included in `public/` for offline/local use.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**Quick Start**
 
-## React Compiler
+Prerequisites:
+- Node.js 18+ and `npm` (or a compatible package manager).
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+Clone and install:
 
-Note: This will impact Vite dev & build performances.
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+git clone <repo-url>
+cd typst-renderer
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Run development server:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
+
+Build for production:
+
+```bash
+npm run build
+```
+
+Preview the production build locally:
+
+```bash
+npm run preview
+```
+
+Lint the codebase:
+
+```bash
+npm run lint
+```
+
+**NPM Scripts**
+- `dev`: Starts the Vite development server.
+- `build`: Runs TypeScript build (`tsc -b`) and then `vite build` to produce a production bundle.
+- `preview`: Serves the production build locally using `vite preview`.
+- `lint`: Runs `eslint` on the repository.
+
+**Project Structure (important paths)**
+- `src/` : Application source code (`App.tsx`, `main.tsx`, styles).
+- `public/wasm/` : WebAssembly binaries used by the Typst web compiler.
+- `public/fonts/` : Font files used by the renderer.
+- `index.html` : Vite entry HTML.
+- `package.json` : Scripts and dependencies.
+
+**Dependencies & Tooling**
+- The project depends on packages from the `@myriaddreamin` org (e.g. `@myriaddreamin/typst-ts-web-compiler`) to provide Typst compilation in the browser.
+- Uses `vite` (overridden to `rolldown-vite`), React 19, TypeScript, and Tailwind-related packages.
+
+**Deployment**
+Build the app (`npm run build`) and deploy the resulting `dist/` folder to any static hosting provider (GitHub Pages, Netlify, Vercel, S3, etc.). Ensure that the contents of `public/wasm` and `public/fonts` are preserved by your hosting configuration.
+
+**Notes & Troubleshooting**
+- If you change or add fonts, place them under `public/fonts/` and reference them in your CSS.
+- If there are issues loading WASM assets in production, confirm the assets are present in `dist/wasm` after `npm run build` and that the server serves them with correct MIME types.
+- The `package.json` currently overrides `vite` to `rolldown-vite@7.2.5` via `overrides`.
+
+**Credits / Attribution**
+- The WebAssembly binaries and related tooling used to render Typst documents in-browser are provided by the `typst.ts` project (Myriad-Dreamin). These WASM assets were not created in this repository. See: https://github.com/Myriad-Dreamin/typst.ts
+- If you reuse or redistribute the WASM binaries, please follow the licensing and attribution terms of the upstream `typst.ts` project.
+
+**Contributing**
+- Open issues or pull requests if you find bugs or want to add features. Keep changes focused and include minimal reproducible examples for rendering problems.
+
+**License**
+- No license is specified in `package.json`. Check repository owner or add a `LICENSE` file if you intend to publish with an open-source license.
