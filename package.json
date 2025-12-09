@@ -13,6 +13,7 @@
     "@myriaddreamin/rehype-typst": "^0.7.0-rc1",
     "@myriaddreamin/typst-ts-web-compiler": "^0.6.1-rc5",
     "@tailwindcss/vite": "^4.1.17",
+    "@vercel/analytics": "^1.6.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-icons": "^5.5.0",
